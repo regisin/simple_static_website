@@ -1,3 +1,4 @@
+import shutil
 from jinja2 import Environment, FileSystemLoader
 from pathlib import Path
 
@@ -8,6 +9,20 @@ from data import teaching
 python -m http.server --directory ./_site/
 """
 
+BUILD_DIR = '_site'
+CURRENT_PATH = Path.cwd()
+BUILD_PATH = CURRENT_PATH / Path(BUILD_DIR)
+
+# remove current build
+try:
+    shutil.rmtree(BUILD_PATH)
+except FileNotFoundError:
+    print("Build dir does not exist (yet).")
+# make build dir
+BUILD_PATH.mkdir(parents=True, exist_ok=True)
+
+
+
 file_loader = FileSystemLoader('templates')
 env = Environment(loader=file_loader)
 
@@ -15,8 +30,7 @@ template = env.get_template('base.html')
 output = template.render(
   title="INDEX"
 )
-o = Path.cwd()
-o = o / Path('_site/index.html')
+o = BUILD_PATH /  Path('index.html')
 with o.open(mode='w') as fh:
     fh.write(output)
     
