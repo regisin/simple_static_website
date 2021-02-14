@@ -29,7 +29,9 @@ output = template.render(
   title="ABOUT ME"
 )
 o = Path.cwd()
-o = o / Path('_site/about.html')
+o = o / Path("_site/about")
+o.mkdir(parents=True, exist_ok=True)
+o = o / Path('index.html')
 with o.open(mode='w') as fh:
     fh.write(output)
 
@@ -43,7 +45,9 @@ output = template.render(
     universities=teaching
 )
 o = Path.cwd()
-o = o / Path('_site/teaching.html')
+o = o / Path("_site/teaching")
+o.mkdir(parents=True, exist_ok=True)
+o = o / Path('index.html')
 with o.open(mode='w') as fh:
     fh.write(output)
     
