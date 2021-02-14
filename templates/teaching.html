@@ -1,13 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
   <h1>{{ title }}<h1>
-  <h2>Southeastern Louisiana University</h2>
-  <ul>
-    <li>Algorithm Design and Implementation II (CMPS 280) Spring 2020</li>
-    <li>Special Topics in Information Technology (CMPS 494/594) Spring 2020</li>
-  </ul>
-  <h2>University of Nevada-Reno</h2>
-  <ul>
-    <li>Computer Communication Networks (CPE 400/600) Spring 2019</li>
-  </ul>
+  {% for university in universities %}
+    <h2>{{ university.name }}</h2>
+    <ul>
+    {% for course in university.courses %}
+      <li>{{ course }}</li>
+    {% endfor %}
+    </ul>
+  {% endfor %}
 {% endblock %}

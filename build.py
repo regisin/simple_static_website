@@ -1,6 +1,8 @@
 from jinja2 import Environment, FileSystemLoader
 from pathlib import Path
 
+from data import teaching
+
 
 """ Serve the website
 python -m http.server --directory ./_site/
@@ -37,7 +39,8 @@ Teaching
 # /teaching.html
 template = env.get_template('teaching.html')
 output = template.render(
-  title="TEACHING"
+    title="Teaching",
+    universities=teaching
 )
 o = Path.cwd()
 o = o / Path('_site/teaching.html')
