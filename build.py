@@ -65,7 +65,7 @@ output = template.render(
     title="Teaching",
     universities=teaching
 )
-o = o = BUILD_PATH / Path("teaching")
+o = BUILD_PATH / Path("teaching")
 o.mkdir(parents=True, exist_ok=True)
 o = o / Path('index.html')
 with o.open(mode='w') as fh:
@@ -79,10 +79,24 @@ template = env.get_template('research.html')
 output = template.render(
     base_url=BASE_URL,
     title="Research",
-    projects=research
+    projects=research['projects']
 )
 o = BUILD_PATH / Path("research")
 o.mkdir(parents=True, exist_ok=True)
 o = o / Path('index.html')
 with o.open(mode='w') as fh:
     fh.write(output)
+
+# /research/{slug}
+template = env.get_template('research_detail.html')
+for r in research['projects']:
+    output = template.render(
+        base_url=BASE_URL,
+        title='Project details',
+        project=r
+    )
+    o = BUILD_PATH / Path("research/"+r['slug'])
+    o.mkdir(parents=True, exist_ok=True)
+    o = o / Path('index.html')
+    with o.open(mode='w') as fh:
+        fh.write(output)
