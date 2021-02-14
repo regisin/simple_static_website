@@ -4,3 +4,4 @@ echo "" > build.py
 echo "" > data.py
 mkdir templates
 mkdir _site
+pip install Jinja2
