@@ -16,3 +16,18 @@ teaching = [
         ]
     },
 ]
+
+research = [
+    {
+        'name': 'My Awesome Research',
+        'slug' : 'my-awesome-research',
+        'excerpt' : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquam lectus eget nisl iaculis, at maximus elit convallis. Donec mattis, sem et imperdiet convallis, leo enim tincidunt massa, non aliquam ante libero sollicitudin quam. Maecenas facilisis urna urna, sed malesuada diam facilisis sit amet.',
+        'thumbnail': '/images/my-awesome-research-thumb.png',
+    },
+    {
+        'name': 'My Alright Research',
+        'slug' : 'my-alright-research',
+        'excerpt' : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquam lectus eget nisl iaculis, at maximus elit convallis. Donec mattis, sem et imperdiet convallis, leo enim tincidunt massa, non aliquam ante libero sollicitudin quam. Maecenas facilisis urna urna, sed malesuada diam facilisis sit amet.',
+        'thumbnail': '/images/my-alright-research-thumb.png',
+    },
+]

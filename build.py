@@ -2,32 +2,38 @@ import shutil
 from jinja2 import Environment, FileSystemLoader
 from pathlib import Path
 
-from data import teaching
+from data import teaching, research
 
+BASE_URL = 'http://127.0.0.1:8000'
 
 """ Serve the website
 python -m http.server --directory ./_site/
 """
 
 BUILD_DIR = '_site'
+STATIC_DIR = 'static'
 CURRENT_PATH = Path.cwd()
 BUILD_PATH = CURRENT_PATH / Path(BUILD_DIR)
-
-# remove current build
+STATIC_PATH = CURRENT_PATH / Path(STATIC_DIR)
+# clean-up build folder
 try:
     shutil.rmtree(BUILD_PATH)
-except FileNotFoundError:
-    print("Build dir does not exist (yet).")
-# make build dir
-BUILD_PATH.mkdir(parents=True, exist_ok=True)
-
+except FileNotFound:
+    print("Build dir does not exist yet.")
+# Copy static assets
+shutil.copytree(STATIC_PATH, BUILD_PATH)
 
 
 file_loader = FileSystemLoader('templates')
 env = Environment(loader=file_loader)
 
+
+"""
+Index
+"""
 template = env.get_template('base.html')
 output = template.render(
+  base_url=BASE_URL,
   title="INDEX"
 )
 o = BUILD_PATH /  Path('index.html')
@@ -40,10 +46,10 @@ About
 # /about.html
 template = env.get_template('about.html')
 output = template.render(
+  base_url=BASE_URL,
   title="ABOUT ME"
 )
-o = Path.cwd()
-o = o / Path("_site/about")
+o = BUILD_PATH / Path("about")
 o.mkdir(parents=True, exist_ok=True)
 o = o / Path('index.html')
 with o.open(mode='w') as fh:
@@ -55,13 +61,28 @@ Teaching
 # /teaching.html
 template = env.get_template('teaching.html')
 output = template.render(
+  base_url=BASE_URL,
     title="Teaching",
     universities=teaching
 )
-o = Path.cwd()
-o = o / Path("_site/teaching")
+o = o = BUILD_PATH / Path("teaching")
 o.mkdir(parents=True, exist_ok=True)
 o = o / Path('index.html')
 with o.open(mode='w') as fh:
     fh.write(output)
     
+"""
+Research
+"""
+# /research
+template = env.get_template('research.html')
+output = template.render(
+    base_url=BASE_URL,
+    title="Research",
+    projects=research
+)
+o = BUILD_PATH / Path("research")
+o.mkdir(parents=True, exist_ok=True)
+o = o / Path('index.html')
+with o.open(mode='w') as fh:
+    fh.write(output)
